@@ -1,0 +1,67 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: rgb(37, 37, 37);
+    color: white;
+}
+
+nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgb(51, 51, 51);
+    height: 48px;
+    padding: 0 16px;
+}
+
+nav h1 {
+    color: orange;
+}
+
+nav a {
+    color: white;
+}
+
+main {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.card {
+    background: rgb(51, 51, 51);
+    border-radius: 16px;
+    padding: 16px;
+    margin: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.card a {
+    color: white;
+}
+.card .card-placeholder {
+    width: 200px;
+    height: 200px;
+    background: white;
+    border-radius: 8px;
+}
+
+.card .card-name {
+    margin: 16px 0;
+}
+
+table {
+    width: 100%;
+    max-width: 600px;
+}
+
+td {
+    text-align: center;
+}
