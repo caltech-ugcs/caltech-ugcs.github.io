@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <title>Tutorial 1</title>
     <link rel="stylesheet" data-name="vs/editor/editor.main" href="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.26.1/min/vs/editor/editor.main.min.css">
+    <link rel="stylesheet" href="./style.css">
     <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
     <style>
         nav {
@@ -60,6 +61,8 @@
 let response = await fetch(url);
 // parse the json payload.
 let payload = await response.json();</pre>
+<p>Attempt to modify the 'fetchClasses' function to make a HTTP GET request for the course catalog data.</p>
+
         </div>
         <div style="min-height: 0; max-width: 100%; display: grid; grid-template-columns: 100%; grid-template-rows: max-content 1fr;">
             <div style="display: grid; grid-template-columns: 60% 40%; grid-template-rows: 1fr; max-height: 100%;">
@@ -68,7 +71,7 @@ let payload = await response.json();</pre>
                     <button style="padding: 4px 16px; background-color: rgb(25, 164, 100); font-size: 16px; border: 0; border-radius: 8px; color: white;" onclick='run()'>Run</button>
                 </div>
                 <div style="flex: 1; margin: 0 4px;background-color: #ccc; border-radius: 8px; padding: 8px 16px;">
-                    <p>Output</p>
+                    <span>Output</span>
                 </div>
             </div>
             <div style="min-height: 0; display: grid; grid-template-columns: 60% 40%; grid-template-rows: 1fr;">
