@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Tutorial 1</title>
+    <link rel="stylesheet" data-name="vs/editor/editor.main" href="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.26.1/min/vs/editor/editor.main.min.css">
+    <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+    <style>
+        nav {
+            background-color:  #C8C8C8;
+        }
+
+        li {
+            height: 32px;
+            display: flex;
+            padding: 8px;
+            align-items: center;
+        }
+        li a {
+            text-decoration: none;
+            color: white;
+        }
+        li:hover {
+            background-color:  #AFAFAF;
+        }
+        li.current {
+            background-color: #FF6C0C;
+        }
+        main {
+            padding: 16px;
+        }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+           height: 100vh;
+           max-height: 100vh;
+           padding: 24px;
+        }
+    </style>
+</head>
+<body style="display: grid; grid-template-columns: 200px 1fr; padding: 0;">
+    <nav>
+        <ul>
+            <li><a href="/example0">Tutorial 0</a></li>
+            <li><a href="/example1">Tutorial 1</a></li>
+            <li><a href="/example2">Tutorial 2</a></li>
+            <li class="current"><a href="/example3">Tutorial 3</a></li>
+        </ul>
+    </nav>
+    <main style="height: 100%; display: grid; grid-template-rows: 100px 1fr; grid-template-columns: 100%; overflow: hidden;">
+        <div>
+            <h1>Access Class Schedule</h1>
+        </div>
+        <div style="min-height: 0; max-width: 100%; display: grid; grid-template-columns: 100%; grid-template-rows: max-content 1fr;">
+            <div style="display: grid; grid-template-columns: 60% 40%; grid-template-rows: 1fr; max-height: 100%;">
+                <div style="flex: 1; display: flex; justify-content: space-between; align-items: center; margin: 0 4px; background-color: #ccc; border-radius: 8px; padding: 4px;">
+                    <span>Code</span>
+                    <button style="padding: 4px 16px; background-color: rgb(25, 164, 100); font-size: 16px; border: 0; border-radius: 8px; color: white;" onclick='run()'>Run</button>
+                </div>
+                <div style="flex: 1; margin: 0 4px;background-color: #ccc; border-radius: 8px; padding: 8px 16px;">
+                    <p>Output</p>
+                </div>
+            </div>
+            <div style="min-height: 0; display: grid; grid-template-columns: 60% 40%; grid-template-rows: 1fr;">
+                <div id="container" style="min-height: 0;"></div>
+                <div style="min-height: 0; overflow: scroll;">
+                    <pre id="result"></pre>
+                </div>
+            </div>
+        </div>
+        
+       
+    </main>
+   
+   
+    <script>var require = { paths: { 'vs': 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.26.1/min/vs' } }</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.26.1/min/vs/loader.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.26.1/min/vs/editor/editor.main.nls.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.26.1/min/vs/editor/editor.main.js"></script>
+    <script>
+        window.editor = monaco.editor.create(document.getElementById('container'), {
+        value: `
+async function fetchClasses(year, term) {
+    let res = await fetch(` + "`http://10.8.7.171:3000/api/courses/${year}/${term}`" + `)
+    return res.json()
+}
+
+async function main() {
+    let classes = await fetchClasses(2021, 1);
+    return classes;
+}`,
+        language: 'javascript',
+        automaticLayout: true,
+        theme: 'vs-light',
+        minimap: {
+            enabled: false
+        }
+    });
+
+
+    /*
+    async function fetchClassSchedule(year, term) {
+        return fetch(`https://pokeapi.co/api/v2/pokemon?offset=0&limit=100`).then(response => response.json())
+    } */
+
+    async function run() {
+        let result = document.getElementById("result");
+        try {
+            eval(window.editor.getValue());
+            let res = await main();
+            result.innerText = JSON.stringify(res, null, 2);
+        } catch (e) {
+            result.innerText = e.message;
+        }
+        
+    }
+    </script>
+</body>
+</html>

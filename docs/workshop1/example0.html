@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Tutorial 1</title>
+    <link rel="stylesheet" data-name="vs/editor/editor.main" href="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.26.1/min/vs/editor/editor.main.min.css">
+    <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+    <style>
+        nav {
+            background-color:  #C8C8C8;
+        }
+
+        li {
+            height: 32px;
+            display: flex;
+            padding: 8px;
+            align-items: center;
+        }
+        li a {
+            text-decoration: none;
+            color: white;
+        }
+        li:hover {
+            background-color:  #AFAFAF;
+        }
+        li.current {
+            background-color: #FF6C0C;
+        }
+        main {
+            padding: 16px;
+        }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+           height: 100vh;
+           max-height: 100vh;
+           padding: 24px;
+        }
+    </style>
+</head>
+<body style="display: grid; grid-template-columns: 200px 1fr; padding: 0;">
+    <nav>
+        <ul>
+            <li><a href="/example0">Tutorial 0</a></li>
+            <li class="current"><a href="/example1">Tutorial 1</a></li>
+            <li><a href="/example1">Tutorial 2</a></li>
+            <li><a href="/example2">Tutorial 3</a></li>
+        </ul>
+    </nav>
+    <main style="height: 100%;">
+        <h1>HTTP</h1>
+        <p>Most web content is transported using the HTTP protocol. The HTTP protocol is a server-client protocol in that there is a single server and arbitrarily many clients. When a client makes a request to the server, the server replies with an appropriate response.</p>
+        <h2>HTTP Requests</h2>
+        <ul>
+            <li>A method (GET, POST, PUT, DELETE).</li>
+            <li>A URL (e.g. /foo/bar/baz)</li>
+            <li>A set of metadata headers (e.g. Date, Content-Type, etc) </li>
+            <li>A body (arbitrary data)</li>
+        </ul>
+        <h2>HTTP Responses</h2>
+        <ul>
+            <li>A status codeto indicate success or error (e.g 404).</li>
+            <li>A set of metadata headers (e.g. Date, Content-Type, etc) </li>
+            <li>A body (arbitrary data)</li>
+        </ul>
+        <h2>Resources and CRUD</h2>
+        <p>The URL of a HTTP request is intended to represent set of nested resources, 
+            for example files within a nested directory. The <em>method</em> of an HTTP request
+            is meant to represent the action that is taken on a resources. 
+        </p>
+        <ul>
+            <li>POST (create a file)</li>
+            <li>GET (read a file)</li>
+            <li>PUT (update a file)</li>
+            <li>DELETE (delete a file)</li>
+        </ul>
+        <h2>REST API</h2>
+        <p>A REST API generalizes the notion of creating, reading, updating, and deleting a file to arbitrary data.</p>
+        <p>Data (in a HTTP body) may be transmitted in many different formats.</p>
+        <ul>
+            <li>plaintext</li>
+            <li>html</li>
+            <li>JSON</li>
+            <li>...etc</li>
+        </ul>
+        <h2>HTML</h2>
+        <p>Try making a following GET request to the endpoint '/' on the server 'ugcs.caltech.edu'. This can be done simply by typing 'ugcs.caltech.edu/' into your browser.</p>
+        <p>When you enter a URL into the search bar, the web browser sends the following HTTP request to the 'ugcs.caltech.edu' server.</p>
+        <br/>
+        <pre>
+GET /
+        </pre>
+        <p>The 'ugcs.caltech.edu' server should return a response that looks like the following... try it out!</p>
+        <br/>
+        <pre>
+HTTP/1.1 200 OK
+Content-Type: text/html; charset=utf-8
+Content-Length: 702
+
+&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;style.css&quot;&gt;
+    &lt;title&gt;UGCS&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;nav&gt;
+        &lt;h1&gt;&lt;a href=&quot;/&quot;&gt;UGCS&lt;/a&gt;&lt;/h1&gt;
+        &lt;div&gt;
+            &lt;a href=&quot;/leadership.html&quot;&gt;Leadership&lt;/a&gt;
+            &lt;a href=&quot;/calendar.html&quot;&gt;Calendar&lt;/a&gt;
+        &lt;/div&gt;
+    &lt;/nav&gt;
+    &lt;main&gt;
+        &lt;h1&gt;Undergraduate Computer Science Club&lt;/h1&gt;
+        &lt;p&gt;
+            The mission of UGCS is to maintain a student-run computing environment that serves as sandbox for
+            experimentation and innovation. Additionally, UGCS seeks to build an alumni network to help students
+            navigate the internship and job search process.
+        &lt;/p&gt;
+    &lt;/main&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+        </pre>
+        <h2>JSON</h2>
+        <p>Try making a following GET request to the endpoint `/api/v2/pokemon?limit=5` on the server `pokeapi.co`. This can be done by searching `https://pokeapi.co/api/v2/pokemon?limit=5` in your web browser.</p>
+        <br/>
+        <pre>
+GET /api/v2/pokemon?limit=5
+        </pre>
+        <br/>
+        <pre>
+HTTP/1.1 200 OK
+Content-Type: application/json; charset=utf-8
+Content-Length: 665
+
+{
+    "count": 1118,
+    "next": "https://pokeapi.co/api/v2/pokemon?offset=5&limit=5",
+    "previous": null,
+    "results": [
+        {
+            "name": "bulbasaur",
+            "url": "https://pokeapi.co/api/v2/pokemon/1/"
+        },
+        {
+            "name": "ivysaur",
+            "url": "https://pokeapi.co/api/v2/pokemon/2/"
+        },
+        {
+            "name": "venusaur",
+            "url": "https://pokeapi.co/api/v2/pokemon/3/"
+        },
+        {
+            "name": "charmander",
+            "url": "https://pokeapi.co/api/v2/pokemon/4/"
+        },
+        {
+            "name": "charmeleon",
+            "url": "https://pokeapi.co/api/v2/pokemon/5/"
+        }
+    ]
+}
+        </pre>
+        <h2>Fun Examples</h2>
+        <p>Try making a GET request to the endpoint `/1/scheduler/courses/2021/1` on the server `donut.caltech.edu`. This can be done by searching `https://donut.caltech.edu/1/scheduler/courses/2021/1` in your web browser.</p>
+    
+    </main>
+   </body>
+</html>
