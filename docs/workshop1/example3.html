@@ -55,7 +55,7 @@
     <main style="height: 100%; display: grid; grid-template-rows: 100px 1fr; grid-template-columns: 100%; overflow: hidden;">
         <div>
             <h1>Generate HTML</h1>
-            <p>The map function can also be used to dynamically generate HTML content. The example below generates an HTML string which displays the name of the instructor, the </p>
+            <p>The map function can also be used to dynamically generate HTML content. The example below generates an HTML string which displays the name of the instructor, and the classes the instructor is teaching. Try to modify this example to display the number of classes taught by each instructor. </p>
         </div>
         <div style="min-height: 0; max-width: 100%; display: grid; grid-template-columns: 100%; grid-template-rows: max-content 1fr;">
             <div style="display: grid; grid-template-columns: 60% 40%; grid-template-rows: 1fr; max-height: 100%;">
@@ -117,7 +117,6 @@ async function main() {
     return Object.keys(instructors).map(i => ${`\`
         <h1>\${i}</h1>
         <p>\${i} is teaching ? classes this term.</p>
-        <p>\${i} is teaching classes in ? departments.</p>
         <ul>
             \${instructors[i].map(c => ${`\`<li>\${c.name}</li>\``}).join('')}
         </ul>
