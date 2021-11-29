@@ -113,6 +113,7 @@ function groupByInstructor(classes) {
 async function main() {
     let classes = await fetchClasses(2021, 1);
     let instructors = allInstructors(classes);
+    // Object.keys(foo) is equivalent to foo.keys() in python.
     return Object.keys(instructors).map(i => ${`\`
         <h1>\${i}</h1>
         <p>\${i} is teaching ? classes this term.</p>
