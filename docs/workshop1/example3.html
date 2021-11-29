@@ -87,7 +87,7 @@
         window.editor = monaco.editor.create(document.getElementById('container'), {
         value: `
 async function fetchClasses(year, term) {
-    let res = await fetch(` + "`http://131.215.170.176:3000/api/courses/${year}/${term}`" + `)
+    let res = await fetch(` + "`https://131.215.170.176:3000/api/courses/${year}/${term}`" + `)
     return res.json()
 }
 
