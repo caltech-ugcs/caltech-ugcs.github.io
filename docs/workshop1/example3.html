@@ -54,7 +54,8 @@
     </nav>
     <main style="height: 100%; display: grid; grid-template-rows: 100px 1fr; grid-template-columns: 100%; overflow: hidden;">
         <div>
-            <h1>Access Class Schedule</h1>
+            <h1>Generate HTML</h1>
+            <p>The map function can also be used to dynamically generate HTML content. The example below generates an HTML string which displays the name of the instructor, the </p>
         </div>
         <div style="min-height: 0; max-width: 100%; display: grid; grid-template-columns: 100%; grid-template-rows: max-content 1fr;">
             <div style="display: grid; grid-template-columns: 60% 40%; grid-template-rows: 1fr; max-height: 100%;">
@@ -90,9 +91,31 @@ async function fetchClasses(year, term) {
     return res.json()
 }
 
+function allInstructors(classes) {
+    let instructors = {}
+    for (let c of classes) {
+        for (let section of c.sections) {
+            if (instructors[section.instructor]) {
+                instructors[section.instructor].push(c);
+            } else {
+                instructors[section.instructor] = [c]
+            }
+        }
+    }
+    return instructors
+}
+
 async function main() {
     let classes = await fetchClasses(2021, 1);
-    return classes;
+    let instructors = allInstructors(classes);
+    return Object.keys(instructors).map(i => ${`\`
+        <h1>\${i}</h1>
+        <p>\${i} is teaching ? classes this term.</p>
+        <p>\${i} is teaching classes in ? departments.</p>
+        <ul>
+            \${instructors[i].map(c => ${`\`<li>\${c.name}</li>\``}).join('')}
+        </ul>
+    \``}).join('')
 }`,
         language: 'javascript',
         automaticLayout: true,
@@ -102,18 +125,12 @@ async function main() {
         }
     });
 
-
-    /*
-    async function fetchClassSchedule(year, term) {
-        return fetch(`https://pokeapi.co/api/v2/pokemon?offset=0&limit=100`).then(response => response.json())
-    } */
-
     async function run() {
         let result = document.getElementById("result");
         try {
             eval(window.editor.getValue());
             let res = await main();
-            result.innerText = JSON.stringify(res, null, 2);
+            result.innerHTML = res;
         } catch (e) {
             result.innerText = e.message;
         }
