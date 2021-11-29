@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <main id="main"></main>
+    <script>
+        async function fetchClasses(year, term) {
+            let res = await fetch(`https://131.215.170.176:3000/api/courses/${year}/${term}`)
+            return res.json()
+        }
+
+        /*
+        * groupByInstructor returns an object (equivalent to Python dict) whose keys
+        * are the instructor names and whose value is a list of all classes taught by
+        * the instructors.
+        */
+        function groupByInstructor(classes) {
+            let instructors = {}
+            for (let c of classes) {
+                for (let section of c.sections) {
+                    if (instructors[section.instructor]) {
+                        instructors[section.instructor].push(c);
+                    } else {
+                        instructors[section.instructor] = [c]
+                    }
+                }
+            }
+            return instructors
+        }
+
+        async function main() {
+            let classes = await fetchClasses(2021, 1);
+            let instructors = groupByInstructor(classes);
+            // Object.keys(foo) is equivalent to foo.keys() in python.
+            return Object.keys(instructors).map(i => `
+                <h1>${i}</h1>
+                <p>${i} is teaching ? classes this term.</p>
+                <ul>
+                    ${instructors[i].map(c => `<li>${c.name}</li>`).join('')}
+                </ul>
+            `).join('')
+        }
+
+        main().then((html) => document.getElementById('main').innerHTML = html);
+    </script>
+</body>
+</html>
