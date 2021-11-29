@@ -91,7 +91,12 @@ async function fetchClasses(year, term) {
     return res.json()
 }
 
-function allInstructors(classes) {
+/*
+ * allInstructors returns an object (equivalent to Python dict) whose keys
+ * are the instructor names and whose value is a list of all classes taught by
+ * the instructors.
+ */
+function groupByInstructor(classes) {
     let instructors = {}
     for (let c of classes) {
         for (let section of c.sections) {
