@@ -97,7 +97,7 @@ let arr2 = arr.filter((x, i) => x % 2 == 1) // [1, 3, 5]</pre>
         window.editor = monaco.editor.create(document.getElementById('container'), {
         value: `
 async function fetchClasses(year, term) {
-    let res = await fetch(` + "`http://10.8.7.171:3000/api/courses/${year}/${term}`" + `)
+    let res = await fetch(` + "`http://131.215.170.176:3000/api/courses/${year}/${term}`" + `)
     return res.json()
 }
 
