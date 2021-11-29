@@ -92,7 +92,7 @@ async function fetchClasses(year, term) {
 }
 
 /*
- * allInstructors returns an object (equivalent to Python dict) whose keys
+ * groupByInstructor returns an object (equivalent to Python dict) whose keys
  * are the instructor names and whose value is a list of all classes taught by
  * the instructors.
  */
@@ -112,7 +112,7 @@ function groupByInstructor(classes) {
 
 async function main() {
     let classes = await fetchClasses(2021, 1);
-    let instructors = allInstructors(classes);
+    let instructors = groupByInstructor(classes);
     // Object.keys(foo) is equivalent to foo.keys() in python.
     return Object.keys(instructors).map(i => ${`\`
         <h1>\${i}</h1>
