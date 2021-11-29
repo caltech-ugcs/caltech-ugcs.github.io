@@ -52,14 +52,14 @@
         <div>
             <h1>Map and Filter</h1>
             <p>Often, the response of a REST API can be processed with a combination of two functions, map and reduce.</p>
-            <p>The <code>map((x, i) => {...})</code> method returns a list constructed by applying a function to each element of a list.</p>
+            <p>The <code>map(x => {...})</code> method returns a list constructed by applying a function to each element of a list.</p>
             <pre class="prettyprint lang-js">
 let arr = [1, 2, 3]
-let arr2 = arr.map((x, i) => x * x) // [1, 4, 9]</pre>
-            <p>The <code>filter((x, i) => {...})</code> method returns the sublist of elements for which the given function evaluates to true.</p>
+let arr2 = arr.map(x => { return x * x }) // [1, 4, 9]</pre>
+            <p>The <code>filter(x => {...})</code> method returns the sublist of elements for which the given function evaluates to true.</p>
             <pre class="prettyprint lang-js">
 let arr = [1, 2, 3, 4, 5]
-let arr2 = arr.filter((x, i) => x % 2 == 1) // [1, 3, 5]</pre>
+let arr2 = arr.filter(x => { return x % 2 == 1 }) // [1, 3, 5]</pre>
 <p>Using the data returned from the classes API, try to compute the following:</p>
 <ul>
     <li>A list of the names of all classes offered Fall 2021</li>
